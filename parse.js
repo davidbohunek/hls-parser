@@ -371,9 +371,9 @@ function parseMasterPlaylist(lines, params) {
       setCompatibleVersionOfKey(params, attributes);
       playlist.sessionKeyList.push(sessionKey);
     } else if (name === 'EXT-X-INDEPENDENT-SEGMENTS') {
-      if (playlist.independentSegments) {
-        utils.INVALIDPLAYLIST('EXT-X-INDEPENDENT-SEGMENTS tag MUST NOT appear more than once in a Playlist');
-      }
+      // if (playlist.independentSegments) {
+      //   utils.INVALIDPLAYLIST('EXT-X-INDEPENDENT-SEGMENTS tag MUST NOT appear more than once in a Playlist');
+      // }
       playlist.independentSegments = true;
     } else if (name === 'EXT-X-START') {
       if (playlist.start) {
@@ -403,9 +403,9 @@ function parseSegment(lines, uri, start, end, mediaSequenceNumber, discontinuity
       if (!Number.isInteger(value.duration) && params.compatibleVersion < 3) {
         params.compatibleVersion = 3;
       }
-      if (Math.round(value.duration) > params.targetDuration) {
-        utils.INVALIDPLAYLIST('EXTINF duration, when rounded to the nearest integer, MUST be less than or equal to the target duration');
-      }
+      // if (Math.round(value.duration) > params.targetDuration) {
+      //   utils.INVALIDPLAYLIST('EXTINF duration, when rounded to the nearest integer, MUST be less than or equal to the target duration');
+      // }
       segment.duration = value.duration;
       segment.title = value.title;
     } else if (name === 'EXT-X-BYTERANGE') {
@@ -528,9 +528,9 @@ function parseMediaPlaylist(lines, params) {
       }
       playlist.isIFrame = true;
     } else if (name === 'EXT-X-INDEPENDENT-SEGMENTS') {
-      if (playlist.independentSegments) {
-        utils.INVALIDPLAYLIST('EXT-X-INDEPENDENT-SEGMENTS tag MUST NOT appear more than once in a Playlist');
-      }
+      // if (playlist.independentSegments) {
+      //   utils.INVALIDPLAYLIST('EXT-X-INDEPENDENT-SEGMENTS tag MUST NOT appear more than once in a Playlist');
+      // }
       playlist.independentSegments = true;
     } else if (name === 'EXT-X-START') {
       if (playlist.start) {
@@ -615,11 +615,11 @@ function checkDateRange(segments) {
       const end = dateRange.end ? dateRange.end.getTime() : dateRange.start.getTime() + (dateRange.duration || 0) * 1000;
       const range = rangeList.get(dateRange.classId);
       if (range) {
-        for (const entry of range) {
-          if ((entry.start <= start && entry.end > start) || (entry.start >= start && entry.start < end)) {
-            utils.INVALIDPLAYLIST('DATERANGE tags with the same CLASS should not overlap');
-          }
-        }
+        // for (const entry of range) {
+        //   if ((entry.start <= start && entry.end > start) || (entry.start >= start && entry.start < end)) {
+        //     utils.INVALIDPLAYLIST('DATERANGE tags with the same CLASS should not overlap');
+        //   }
+        // }
         range.push({start, end});
       } else {
         rangeList.set(dateRange.classId, [{start, end}]);
